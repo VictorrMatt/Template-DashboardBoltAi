@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { toast } from "sonner"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/layout/card";
+import { Label } from "@/components/ui/form/label";
+import { Switch } from "@/components/ui/form/switch";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
   const handleToggle = () => {
-    toast.success("Setting updated!")
-  }
+    toast.success("Setting updated!");
+  };
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -53,5 +59,5 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

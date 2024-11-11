@@ -1,11 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/layout/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/layout/dialog";
+import { Input } from "@/components/ui/form/input";
+import { Label } from "@/components/ui/form/label";
+import { Button } from "@/components/ui/navigation/button";
 
 const defaultCards = [
   {
@@ -20,18 +33,18 @@ const defaultCards = [
     description: "Innovation at its finest",
     content: "Another example of a customizable card.",
   },
-]
+];
 
 export default function CardsPage() {
-  const [cards, setCards] = useState(defaultCards)
-  const [editingCard, setEditingCard] = useState(null)
+  const [cards, setCards] = useState(defaultCards);
+  const [editingCard, setEditingCard] = useState(null);
 
   const handleSave = (id, newData) => {
-    setCards(cards.map(card => 
-      card.id === id ? { ...card, ...newData } : card
-    ))
-    setEditingCard(null)
-  }
+    setCards(
+      cards.map((card) => (card.id === id ? { ...card, ...newData } : card))
+    );
+    setEditingCard(null);
+  };
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -65,10 +78,12 @@ export default function CardsPage() {
                   <Input
                     id="title"
                     defaultValue={card.title}
-                    onChange={(e) => setEditingCard({
-                      ...editingCard,
-                      title: e.target.value
-                    })}
+                    onChange={(e) =>
+                      setEditingCard({
+                        ...editingCard,
+                        title: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="grid gap-2">
@@ -76,10 +91,12 @@ export default function CardsPage() {
                   <Input
                     id="description"
                     defaultValue={card.description}
-                    onChange={(e) => setEditingCard({
-                      ...editingCard,
-                      description: e.target.value
-                    })}
+                    onChange={(e) =>
+                      setEditingCard({
+                        ...editingCard,
+                        description: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="grid gap-2">
@@ -87,10 +104,12 @@ export default function CardsPage() {
                   <Input
                     id="content"
                     defaultValue={card.content}
-                    onChange={(e) => setEditingCard({
-                      ...editingCard,
-                      content: e.target.value
-                    })}
+                    onChange={(e) =>
+                      setEditingCard({
+                        ...editingCard,
+                        content: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -102,5 +121,5 @@ export default function CardsPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

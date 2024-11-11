@@ -1,5 +1,10 @@
-import DashboardChart from "@/components/dashboard-chart";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DashboardChart from "@/components/ui/dashboard-chart";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/layout/card";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 const cards = [

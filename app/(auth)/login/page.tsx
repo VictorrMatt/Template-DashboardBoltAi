@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as z from "zod"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2 } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import * as z from "zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/navigation/button";
 import {
   Form,
   FormControl,
@@ -14,20 +14,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { toast } from "sonner"
+} from "@/components/ui/form/form";
+import { Input } from "@/components/ui/form/input";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/layout/card";
+import Link from "next/link";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-})
+});
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,17 +42,17 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    
+    setIsLoading(true);
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsLoading(false)
-    toast.success("Successfully logged in!")
-    router.push("/dashboard")
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    setIsLoading(false);
+    toast.success("Successfully logged in!");
+    router.push("/dashboard");
   }
 
   return (
@@ -106,5 +113,5 @@ export default function LoginPage() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }
