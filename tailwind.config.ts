@@ -9,6 +9,41 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      textColor: {
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+          darker: "var(--primary-darker)",
+          dark: "var(--primary-dark)",
+          base: "var(--primary-base)",
+          light: "var(--primary-light)",
+          lighter: "var(--primary-lighter)",
+        },
+        neutral: {
+          0: "var(--neutral-0)",
+          100: "var(--neutral-100)",
+          200: "var(--neutral-200)",
+          300: "var(--neutral-300)",
+          400: "var(--neutral-400)",
+          500: "var(--neutral-500)",
+          600: "var(--neutral-600)",
+          700: "var(--neutral-700)",
+          800: "var(--neutral-800)",
+          900: "var(--neutral-900)",
+        },
+        others: {
+          0: "var(--others-0)",
+          100: "var(--others-100)",
+          200: "var(--others-200)",
+          300: "var(--others-300)",
+          400: "var(--others-400)",
+          500: "var(--others-500)",
+          600: "var(--others-600)",
+          700: "var(--others-700)",
+          800: "var(--others-800)",
+          900: "var(--others-900)",
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -22,6 +57,39 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+          darker: "var(--primary-darker)",
+          dark: "var(--primary-dark)",
+          base: "var(--primary-base)",
+          light: "var(--primary-light)",
+          lighter: "var(--primary-lighter)",
+        },
+        neutral: {
+          0: "var(--neutral-0)",
+          100: "var(--neutral-100)",
+          200: "var(--neutral-200)",
+          300: "var(--neutral-300)",
+          400: "var(--neutral-400)",
+          500: "var(--neutral-500)",
+          600: "var(--neutral-600)",
+          700: "var(--neutral-700)",
+          800: "var(--neutral-800)",
+          900: "var(--neutral-900)",
+        },
+        others: {
+          0: "var(--others-0)",
+          100: "var(--others-100)",
+          200: "var(--others-200)",
+          300: "var(--others-300)",
+          400: "var(--others-400)",
+          500: "var(--others-500)",
+          600: "var(--others-600)",
+          700: "var(--others-700)",
+          800: "var(--others-800)",
+          900: "var(--others-900)",
+        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -29,10 +97,6 @@ const config: Config = {
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -82,6 +146,9 @@ const config: Config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        "albert-sans": ["Albert Sans", "sans-serif"],
       },
     },
   },

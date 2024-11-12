@@ -1,18 +1,79 @@
+/* Importando a fonte Albert Sans */
+@import url("https://fonts.googleapis.com/css2?family=Albert+Sans&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Definindo as variáveis de cor para o tema claro */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --primary-darker: #1f1e37;
+  --primary-dark: #4000cc;
+  --primary-base: #5000ff;
+  --primary-light: #9292ff;
+  --primary-lighter: #ededff;
+
+  --neutral-0: #f8f9fa;
+  --neutral-100: #f1f2f5;
+  --neutral-200: #e9ebef;
+  --neutral-300: #dee1e6;
+  --neutral-400: #ced2da;
+  --neutral-500: #adb2bd;
+  --neutral-600: #868b96;
+  --neutral-700: #1f1f2e;
+  --neutral-800: #0d0c18;
+  --neutral-900: #07060f;
+
+  --others-0: #f8f9fa;
+  --others-100: #f1f2f5;
+  --others-200: #e9ebef;
+  --others-300: #dee1e6;
+  --others-400: #ced2da;
+  --others-500: #adb2bd;
+  --others-600: #252537;
+  --others-700: #1d1d2b;
+  --others-800: #1d1d2b;
+  --others-900: #161621;
 }
 
+/* Ajustando as variáveis de cor para o tema escuro */
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+
+    --primary-darker: #1f1e37;
+    --primary-dark: #4000cc;
+    --primary-base: #5000ff;
+    --primary-light: #9292ff;
+    --primary-lighter: #ededff;
+
+    --neutral-0: #f8f9fa;
+    --neutral-100: #f1f2f5;
+    --neutral-200: #e9ebef;
+    --neutral-300: #dee1e6;
+    --neutral-400: #ced2da;
+    --neutral-500: #adb2bd;
+    --neutral-600: #868b96;
+    --neutral-700: #1f1f2e;
+    --neutral-800: #0d0c18;
+    --neutral-900: #07060f;
+
+    --others-0: #f8f9fa;
+    --others-100: #f1f2f5;
+    --others-200: #e9ebef;
+    --others-300: #dee1e6;
+    --others-400: #ced2da;
+    --others-500: #adb2bd;
+    --others-600: #252537;
+    --others-700: #1d1d2b;
+    --others-800: #1d1d2b;
+    --others-900: #161621;
   }
 }
 
