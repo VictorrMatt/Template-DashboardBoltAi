@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/layout/card";
 import Link from "next/link";
 import { toast } from "sonner";
+import DroparLogo from "@/components/ui/logo/dropar-logo";
+import UnionIcon from "@/components/ui/icons/union-icon";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -56,64 +58,105 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold text-foreground-rgb">
-          Welcome back
-        </CardTitle>
-        <CardDescription>
-          Enter your credentials to access your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="example@email.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign in
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <div className="text-sm text-muted-foreground">
-          <Link href="/reset-password" className="hover:text-primary">
-            Forgot your password?
-          </Link>
-        </div>
-        <div className="text-sm text-muted-foreground">
-          Don't have an account?{" "}
-          <Link href="/register" className="hover:text-primary">
-            Sign up
-          </Link>
-        </div>
-      </CardFooter>
-    </Card>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <Card className="border-0 shadow-lg w-[358px] mb-[24px]">
+        <DroparLogo></DroparLogo>
+
+        <CardHeader className="flex flex-col space-y-[8px]">
+          <CardTitle className="text-2xl font-bold text-foreground-rgb">
+            Faça login na sua conta
+          </CardTitle>
+          <CardDescription>
+            Digite seu e-mail e senha para entrar
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-[24px]"
+            >
+              <div className="space-y-[16px]">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Email<span className="text-primary-light">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="Digite seu e-mail" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center justify-between">
+                        <div>
+                          Senha<span className="text-primary-light">*</span>
+                        </div>
+
+                        <div className="text-sm text-muted-foreground">
+                          <Link
+                            href="/reset-password"
+                            className="text-primary-light hover:underline"
+                          >
+                            Esqueceu a senha?
+                          </Link>
+                        </div>
+                      </FormLabel>
+
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="Digite sua senha"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Entrar
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-[24px]">
+          <div className="text-sm text-muted-foreground">
+            Não tem uma conta?{" "}
+            <Link
+              href="/register"
+              className="text-primary-light hover:underline"
+            >
+              Inicie um teste gratuito de 7 dias
+            </Link>
+          </div>
+        </CardFooter>
+      </Card>
+
+      <UnionIcon />
+      <div className="mt-8 text-center text-muted-foreground">
+        <span>Ao entrar na sua conta, você está aceitando os </span>
+        <Link href="/help" className="text-primary-light hover:underline">
+          Termos de Serviço
+        </Link>
+        <span> e </span>
+        <Link href="/help" className="text-primary-light hover:underline">
+          Política de Privacidade
+        </Link>
+        <span> da Dropar.</span>
+      </div>
+    </div>
   );
 }
