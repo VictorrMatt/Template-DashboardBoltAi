@@ -1,0 +1,22 @@
+{
+  "title": "Sign in to your account",
+  "enter_credentials": "Enter your credentials to access your account",
+  "email": "Email",
+  "email_placeholder": "name@example.com",
+  "password": "Password",
+  "sign_in": "Sign in",
+  "forgot_password": "Forgot your password?",
+  "no_account": "Don't have an account?",
+  "sign_up": "Sign up",
+  "loading": "Loading...",
+  "success": {
+    "login": "Successfully logged in!"
+  },
+  "error": {
+    "login": "Error logging in. Please try again."
+  },
+  "validation": {
+    "invalid_email": "Invalid email address",
+    "password_min": "Password must be at least 8 characters"
+  }
+}

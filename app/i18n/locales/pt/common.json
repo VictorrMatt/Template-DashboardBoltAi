@@ -1,0 +1,22 @@
+{
+  "title": "Entrar na sua conta",
+  "enter_credentials": "Digite suas credenciais para acessar sua conta",
+  "email": "E-mail",
+  "email_placeholder": "nome@exemplo.com",
+  "password": "Senha",
+  "sign_in": "Entrar",
+  "forgot_password": "Esqueceu sua senha?",
+  "no_account": "Ainda não tem uma conta?",
+  "sign_up": "Cadastre-se",
+  "loading": "Carregando...",
+  "success": {
+    "login": "Login realizado com sucesso!"
+  },
+  "error": {
+    "login": "Erro ao fazer login. Tente novamente."
+  },
+  "validation": {
+    "invalid_email": "Endereço de e-mail inválido",
+    "password_min": "A senha deve ter pelo menos 8 caracteres"
+  }
+}

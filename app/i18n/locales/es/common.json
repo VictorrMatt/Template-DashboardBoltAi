@@ -1,0 +1,22 @@
+{
+  "title": "Inicia sesión en tu cuenta",
+  "enter_credentials": "Ingresa tus credenciales para acceder a tu cuenta",
+  "email": "Correo electrónico",
+  "email_placeholder": "nombre@ejemplo.com",
+  "password": "Contraseña",
+  "sign_in": "Iniciar sesión",
+  "forgot_password": "¿Olvidaste tu contraseña?",
+  "no_account": "¿No tienes una cuenta?",
+  "sign_up": "Regístrate",
+  "loading": "Cargando...",
+  "success": {
+    "login": "¡Inicio de sesión exitoso!"
+  },
+  "error": {
+    "login": "Error al iniciar sesión. Por favor, intenta de nuevo."
+  },
+  "validation": {
+    "invalid_email": "Correo electrónico inválido",
+    "password_min": "La contraseña debe tener al menos 8 caracteres"
+  }
+}
