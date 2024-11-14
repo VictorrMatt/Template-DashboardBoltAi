@@ -1,0 +1,25 @@
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: UseNode@1
+    inputs:
+      versionSpec: "16.x"
+    displayName: "Usar Node.js"
+
+  # Restaurar cache para node_modules
+  - task: CacheBeta@2
+    inputs:
+      key: 'node | "$(Agent.OS)" | package-lock.json' # chave para identificar o cache
+      restoreKeys: |
+        node | "$(Agent.OS)"
+      path: $(Pipeline.Workspace)/node_modules # Caminho para o diretório a ser cacheado
+    displayName: "Restaurar Cache de Dependências"
+
+  # Instalar dependências usando npm
+  - script: npm install
+    displayName: "Instalar dependências"
+
+  # Rodar o build do projeto
+  - script: npm run build
+    displayName: "Build do Projeto"

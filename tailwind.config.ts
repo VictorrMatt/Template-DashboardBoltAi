@@ -44,6 +44,11 @@ const config: Config = {
           900: "var(--others-900)",
         },
       },
+      backdropBlur: {
+        customBlur: "10.80px",
+        customBlurHead: "10.35px",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -57,6 +62,11 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        customGray: "rgba(13, 12, 24, 0.55)",
+        customGrayHead: "rgba(8, 10, 12, 0.05)",
+        greenBase:"var(--green-base)",
+        greenBaseOpacity:"var(--green-base-opacity)",
+        grayButton: "rgba(146, 146, 255, 0.16)",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -63,7 +63,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <Card className="border-0 shadow-lg">
+    <Card className="border-0 shadow-lg w-[358px]">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
         <CardDescription>
@@ -112,7 +112,7 @@ export default function RegisterPage() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-[358px]" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Create account
             </Button>

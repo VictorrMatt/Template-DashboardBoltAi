@@ -20,7 +20,14 @@ import { Input } from "@/components/ui/form/input";
 import { Label } from "@/components/ui/form/label";
 import { Button } from "@/components/ui/navigation/button";
 
-const defaultCards = [
+interface CardData {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+}
+
+const defaultCards: CardData[] = [
   {
     id: 1,
     title: "Project Alpha",
@@ -36,10 +43,14 @@ const defaultCards = [
 ];
 
 export default function CardsPage() {
-  const [cards, setCards] = useState(defaultCards);
-  const [editingCard, setEditingCard] = useState(null);
+  const [cards, setCards] = useState<CardData[]>(defaultCards);
+  const [editingCard, setEditingCard] = useState<Partial<CardData> | null>(
+    null
+  );
 
-  const handleSave = (id, newData) => {
+  const handleSave = (id: number, newData: Partial<CardData> | null) => {
+    if (!newData) return;
+
     setCards(
       cards.map((card) => (card.id === id ? { ...card, ...newData } : card))
     );
@@ -74,9 +85,9 @@ export default function CardsPage() {
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="title">Title</Label>
+                  <Label htmlFor={`title-${card.id}`}>Title</Label>
                   <Input
-                    id="title"
+                    id={`title-${card.id}`}
                     defaultValue={card.title}
                     onChange={(e) =>
                       setEditingCard({
@@ -87,9 +98,9 @@ export default function CardsPage() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor={`description-${card.id}`}>Description</Label>
                   <Input
-                    id="description"
+                    id={`description-${card.id}`}
                     defaultValue={card.description}
                     onChange={(e) =>
                       setEditingCard({
@@ -100,9 +111,9 @@ export default function CardsPage() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="content">Content</Label>
+                  <Label htmlFor={`content-${card.id}`}>Content</Label>
                   <Input
-                    id="content"
+                    id={`content-${card.id}`}
                     defaultValue={card.content}
                     onChange={(e) =>
                       setEditingCard({

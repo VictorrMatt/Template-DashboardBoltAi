@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/layout/card";
+import { LogoutButton } from "@/components/ui/navigation/logoutButton";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 const cards = [
@@ -39,6 +40,7 @@ export default function DashboardPage() {
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <LogoutButton />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => (
@@ -59,7 +61,8 @@ export default function DashboardPage() {
         ))}
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-        <DashboardChart />
+        {/*         <DashboardChart />
+         */}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronRight, Loader2, User, Building, Briefcase } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/navigation/button";
 import {
@@ -17,29 +17,43 @@ import {
 } from "@/components/ui/form/form";
 import { Input } from "@/components/ui/form/input";
 import { Textarea } from "@/components/ui/form/textarea";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/layout/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/layout/card";
 import { toast } from "sonner";
+import StepIndicator from "@/components/ui/steps/StepIndicator";
+import ProfileForm from "@/components/ui/steps/ProfileForm";
+import BillingForm from "@/components/ui/steps/BillingForm";
+import ReferralForm from "@/components/ui/steps/ReferralForm";
+import StoreForm from "@/components/ui/steps/StoreForm";
+import { Title } from "@/components/ui/typography/title";
+import { Paragraph } from "@/components/ui/typography/paragraph";
+import { Label } from "@/components/ui/typography/label";
+import UnionIcon from "@/components/ui/icons/union-icon";
+import { BackgroundEffects } from "@/components/ui/background/background-effects";
+import { GradElement } from "@/components/ui/icons/icons";
 
 // Separate schemas for each step
 const stepSchemas = {
-  0: z.object({
+  0: z
+    .object({
+      email: z.string().email("Invalid email address"),
+      password: z.string().min(8, "Password must be at least 8 characters"),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords don't match",
+      path: ["confirmPassword"],
+    }),
+  1: z.object({
     fullName: z.string().min(2, "Name must be at least 2 characters"),
     phoneNumber: z.string().min(10, "Invalid phone number"),
   }),
-  1: z.object({
+  2: z.object({
     companyName: z
       .string()
       .min(2, "Company name must be at least 2 characters"),
     companySize: z.string().min(1, "Please enter company size"),
   }),
-  2: z.object({
+  3: z.object({
     role: z.string().min(2, "Role must be at least 2 characters"),
     bio: z.string().min(10, "Bio must be at least 10 characters"),
   }),
@@ -47,43 +61,76 @@ const stepSchemas = {
 
 const steps = [
   {
-    id: "personal",
-    name: "Personal Info",
-    icon: User,
+    id: "profile",
+    title: "Meu Perfil",
+    titleContent: "Bem vindo a Dropar",
+    fields: ["email", "password", "confirmPassword"],
+    description: "Vamos começar configurando a sua conta",
+    component: ProfileForm,
+  },
+  {
+    id: "billing",
+    title: "Faturamento Mensal",
+    titleContent: "Qual é a faixa de faturamento mensal da sua empresa?",
     fields: ["fullName", "phoneNumber"],
+    description: "Ajude-nos a entender o perfil da sua empresa",
+    component: BillingForm,
   },
   {
-    id: "company",
-    name: "Company Info",
-    icon: Building,
+    id: "referral",
+    title: "Como nos conheceu",
+    titleContent: "Como você conheceu a Dropar?",
     fields: ["companyName", "companySize"],
+    description:
+      "Selecione uma das opções abaixo para saber onde você nos encontrou",
+    component: ReferralForm,
   },
   {
-    id: "professional",
-    name: "Professional Info",
-    icon: Briefcase,
+    id: "connect",
+    title: "Conectar sua loja",
+    titleContent: "Conecte sua loja para importar produtos com facilidade",
     fields: ["role", "bio"],
+    description:
+      "Selecione uma plataforma abaixo para conectar sua loja e acessar todas as funcionalidades da Dropar.",
+    component: StoreForm,
   },
 ];
 
 // Complete form schema for final submission
-const formSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
-  phoneNumber: z.string().min(10, "Invalid phone number"),
-  companyName: z.string().min(2, "Company name must be at least 2 characters"),
-  companySize: z.string().min(1, "Please enter company size"),
-  role: z.string().min(2, "Role must be at least 2 characters"),
-  bio: z.string().min(10, "Bio must be at least 10 characters"),
-});
+const formSchema = z
+  .object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+    fullName: z.string().min(2, "Name must be at least 2 characters"),
+    phoneNumber: z.string().min(10, "Invalid phone number"),
+    companyName: z
+      .string()
+      .min(2, "Company name must be at least 2 characters"),
+    companySize: z.string().min(1, "Please enter company size"),
+    role: z.string().min(2, "Role must be at least 2 characters"),
+    bio: z.string().min(10, "Bio must be at least 10 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-export default function OnboardingPage() {
+export default function UnifiedOnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleClick = () => {
+    router.push("/onboarding-finish");
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
       fullName: "",
       phoneNumber: "",
       companyName: "",
@@ -120,6 +167,10 @@ export default function OnboardingPage() {
     }
 
     if (step < steps.length - 1) {
+      // If this is the registration step, show a success message
+      if (step === 0) {
+        toast.success("Account created successfully!");
+      }
       setStep(step + 1);
     } else {
       // Final submission
@@ -136,156 +187,91 @@ export default function OnboardingPage() {
     }
   };
 
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const CurrentStepComponent = steps[currentStep].component;
+
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep((curr) => curr + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep((curr) => curr - 1);
+    }
+  };
+
   return (
-    <Card className="border-0 shadow-lg">
-      <CardHeader>
-        <div className="flex items-center space-x-2">
-          {steps.map((s, i) => (
-            <div key={s.id} className="flex items-center">
-              <div
-                className={`rounded-full p-2 ${
-                  i <= step ? "bg-primary text-primary-foreground" : "bg-muted"
-                }`}
-              >
-                <s.icon className="h-4 w-4" />
-              </div>
-              {i < steps.length - 1 && (
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              )}
-            </div>
-          ))}
+    <div className="min-h-screen flex flex-col bg-neutral-900">
+      <BackgroundEffects />
+
+      <CardHeader className="bg-customGrayHead backdrop-blur-sm backdrop-filter-customBlurHead py-6 sticky top-0 z-50">
+        <div className="container mx-auto px-11">
+          <StepIndicator steps={steps} currentStep={currentStep} />
         </div>
-        <CardTitle className="text-2xl font-bold">{steps[step].name}</CardTitle>
-        <CardDescription>Complete your profile to get started</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleNextStep();
-            }}
-            className="space-y-4"
-          >
-            {step === 0 && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input placeholder="+1 (555) 000-0000" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-            {step === 1 && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="companyName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Company Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Acme Inc." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="companySize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Company Size</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="e.g. 1-10, 11-50, 51-200"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-            {step === 2 && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="role"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Your Role</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Software Engineer" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="bio"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Bio</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Tell us about yourself..."
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
-            <div className="flex justify-between space-x-2">
-              {step > 0 && (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setStep(step - 1)}
-                >
-                  Previous
-                </Button>
-              )}
-              <Button
-                type="submit"
-                className={step === 0 ? "w-full" : ""}
-                disabled={isLoading}
-              >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {step < steps.length - 1 ? "Next" : "Complete"}
-              </Button>
+
+      <div className="flex flex-col items-center justify-center mt-[-20px] relative">
+        <div className="absolute z-0 top-24 inset-0 flex items-center justify-center">
+          <GradElement />
+        </div>
+
+        <Card className="mx-auto max-w-3xl backdrop-blur-[8px]">
+          <CardContent className="shadow-neutral-0 mb-[29px]">
+            <div className="justify-center items-center flex flex-col">
+              <UnionIcon />
+              <Title
+                variant={"h5"}
+                label={steps[currentStep].titleContent}
+                className="text-2xl font-bold text-neutral-0 mt-2 z-10"
+              />
+
+              <Paragraph
+                variant={"medium"}
+                label={steps[currentStep].description}
+                className=" flex items-center justify-center z-10 text-center text-neutral-300 mt-1 break-words max-w-[616px]"
+              />
             </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+          </CardContent>
+
+          <div className="bg-customGray border-[1px] border-[var(--sds-size-stroke-border) solid var(--neutral-700, #1F1F2E)] backdrop-blur-sm backdrop-filter-customBlur rounded-xl shadow-xl px-8 py-12">
+            <CurrentStepComponent />
+          </div>
+
+          <div className="w-[293px] h-[7.48px] bg-[#1E2025A3] rounded-[0px_0px_11.214px_11.214px] mx-auto backdrop-blur-sm shadow-xl"></div>
+        </Card>
+      </div>
+
+      <div className="fixed bottom-8 right-8 flex gap-4">
+        {currentStep > 0 && (
+          <Button
+            onClick={handlePrevious}
+            className="flex items-center p-3 rounded-lg bg-neutral-900 border-neutral-600 border-[1px] text-neutral-0 hover:bg-others-900 hover:border-others-900 shadow-lg transition-transform duration-150 active:scale-95"
+          >
+            <Label variant={"small"} label="Voltar" />
+          </Button>
+        )}
+
+        {currentStep === steps.length - 1 ? (
+          <Button
+            className="flex items-center w-[126px] px-6 pr-4 py-[10px] rounded-lg text-sm font-medium text-neutral-0 shadow-lg transition-transform duration-150 active:scale-95"
+            onClick={handleClick}
+          >
+            <Label variant={"underline1"} label="Finalizar" />
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
+        ) : (
+          <Button
+            onClick={handleNext}
+            className="flex items-center w-[126px] px-6 pr-4 py-[10px] rounded-lg text-sm font-medium text-neutral-0 shadow-lg transition-transform duration-150 active:scale-95"
+          >
+            <Label variant={"underline1"} label="Próximo" />
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }

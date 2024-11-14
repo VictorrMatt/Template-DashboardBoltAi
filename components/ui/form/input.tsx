@@ -11,12 +11,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          //Layout
-          'flex w-[358px] py-3 pl-3 pr-2.5 items-center gap-[8px]',
-          //Style
-          'rounded-lg border border-neutral-800 bg-[#1B1F27]',
-          //Focus
-          'focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-0',
+          // Layout
+          'flex w-[358px] h-[44px] py-3 pl-3 pr-2.5 items-center gap-[8px] text-neutral-0',
+          // Style
+          'rounded-lg border border-neutral-800 bg-neutral-700',
+          // Focus and Hover Ring with Smooth Transition
+          'transition-all duration-500 ease-in-out',
+          'focus:outline-none focus:ring-2 focus:ring-primary-light',
           className
         )}
         ref={ref}
@@ -25,6 +26,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
 Input.displayName = 'Input';
 
 export { Input };

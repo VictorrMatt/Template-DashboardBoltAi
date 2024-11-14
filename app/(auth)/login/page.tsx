@@ -60,9 +60,9 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Card className="border-0 shadow-lg w-[358px] mb-[24px]">
-        <DroparLogo></DroparLogo>
+        <DroparLogo />
 
-        <CardHeader className="flex flex-col space-y-[8px]">
+        <CardHeader className="flex flex-col">
           <CardTitle className="text-2xl font-bold text-foreground-rgb">
             Faça login na sua conta
           </CardTitle>
@@ -84,7 +84,7 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Email<span className="text-primary-light">*</span>
+                        Email<span className="text-primary-light"> *</span>
                       </FormLabel>
                       <FormControl>
                         <Input placeholder="Digite seu e-mail" {...field} />
@@ -98,15 +98,15 @@ export default function LoginPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center justify-between">
+                      <FormLabel className="flex items-center justify-between hover:ring-0">
                         <div>
-                          Senha<span className="text-primary-light">*</span>
+                          Senha<span className="text-primary-light"> *</span>
                         </div>
 
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-sm text-muted-foreground hover:underline">
                           <Link
                             href="/reset-password"
-                            className="text-primary-light hover:underline"
+                            className="text-primary-light"
                           >
                             Esqueceu a senha?
                           </Link>
@@ -132,11 +132,11 @@ export default function LoginPage() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-[24px]">
+        <CardFooter className="flex flex-col items-center">
           <div className="text-sm text-muted-foreground">
             Não tem uma conta?{" "}
             <Link
-              href="/register"
+              href="/welcome"
               className="text-primary-light hover:underline"
             >
               Inicie um teste gratuito de 7 dias
@@ -146,13 +146,20 @@ export default function LoginPage() {
       </Card>
 
       <UnionIcon />
-      <div className="mt-8 text-center text-muted-foreground">
+      <div className="mt-6 text-center text-muted-foreground">
         <span>Ao entrar na sua conta, você está aceitando os </span>
-        <Link href="/help" className="text-primary-light hover:underline">
+        <br />
+        <Link
+          href="/help"
+          className="text-primary-light underline hover:text-primary-base"
+        >
           Termos de Serviço
         </Link>
         <span> e </span>
-        <Link href="/help" className="text-primary-light hover:underline">
+        <Link
+          href="/help"
+          className="text-primary-light underline hover:text-primary-base"
+        >
           Política de Privacidade
         </Link>
         <span> da Dropar.</span>
